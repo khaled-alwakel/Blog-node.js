@@ -11,9 +11,10 @@ EJS template engine.
 Once logged in, the navigation bar will have a ‘ LogOut ’ item. There will also be a ‘ New Post ’ item where the user can create a
 new blog post and upload an associated image file.
 When he goes back to
-the Home page, her blog entries will be posted there with the username and
+the Home page, his blog entries will be posted there with the username and
 date posted
 
 ## languages and tools
-
+- node.js
+- express.js
 -MongoDB
