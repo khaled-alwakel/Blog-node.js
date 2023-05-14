@@ -15,4 +15,5 @@ new blog post and upload an associated image file., When he goes back to the Hom
 
 - node.js
 - express.js
--MongoDB
+- MongoDB
+- mvc architecture

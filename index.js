@@ -1,72 +1,46 @@
 const express = require("express");
-const path = require("path");
-const mongoose = require("mongoose");
+const app = new express();
 
+const mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost:27017/blog", { useNewUrlParser: true });
 
-const app = new express();
-const ejs = require("ejs");
-const { resourceUsage } = require("process");
-
 const fileUpload = require("express-fileupload");
+const validateMiddleWare = require("./middleware/validationMiddleware");
 
-const BlogPost = require("./models/BlogPost");
-
+const ejs = require("ejs");
 app.set("view engine", "ejs");
 
-const validateMiddleWare = (req, res, next) => {
-  if (req.files == null || req.body.title == null) {
-    return res.redirect("/posts/new");
-  }
-  next();
-};
-
-app.use(express.static("public")); //With this  we specify that any request that ask for assets should get it from the ‘ public ’ directory.
+app.use(express.static("public"));
 app.use(express.json());
-app.use(express.urlencoded());
-app.use(fileUpload()); //adds the files property to the req object so that we can access the uploaded files using req.files.
+
+app.use(fileUpload());
 app.use("/posts/store", validateMiddleWare);
+
+// const newPostController = require("./controllers/newPost");
+const homeController = require("./controllers/home");
+const storePostController = require("./controllers/storePost");
+const getPostController = require("./controllers/getPost");
+const newUserController = require("./controllers/newUser");
+const storeUserController = require("./controllers/storeUser");
+const loginController = require("./controllers/login");
+const loginUserController = require("./controllers/loginUser");
+
+app.get("/", homeController);
+
+app.get("/post/:id", getPostController);
+
+// app.get("/posts/new", newPostController);
+
+app.post("/posts/store", storePostController);
+
+app.get("/auth/register", newUserController);
+
+app.post("/users/register", storeUserController);
+
+app.get("/auth/login", loginController);
+
+app.post("/users/login", loginUserController);
 
 app.listen(4000, () => {
   console.log("App listening on port 4000");
-});
-
-app.get("/", async (req, res) => {
-  const blogposts = await BlogPost.find({});
-  console.log(blogposts);
-  res.render("index", {
-    blogposts,
-  });
-});
-
-app.get("/about", (req, res) => {
-  res.render("about");
-});
-
-app.get("/contact", (req, res) => {
-  res.render("contact");
-});
-
-app.get("/post/:id", async (req, res) => {
-  const blogpost = await BlogPost.findById(req.params.id);
-  res.render("post", {
-    blogpost,
-  });
-});
-
-app.get("/posts/new", (req, res) => {
-  res.render("create");
-});
-
-//path.resolve() helps us get the full absolute path which otherwise changes based on different Operating Systems
-app.post("/posts/store", async (req, res) => {
-  let image = req.files.image;
-  image.mv(path.resolve(__dirname, "public/img", image.name), async (error) => {
-    //image.mv moves the uploaded file to public/img directory with the name from image.name.
-    await BlogPost.create({
-      ...req.body,
-      image: "/img/" + image.name,
-    });
-    res.redirect("/");
-  });
 });
