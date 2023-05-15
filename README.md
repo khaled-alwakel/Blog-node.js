@@ -1,3 +1,3 @@
 
 
-![nodejs](node-blog.jpg)
+![nodejs](node-blog.png)
