@@ -1,3 +1,3 @@
 # Blog-node.js
 
-// todo
+![nodejs](/public/img/home-bg.jpg)
