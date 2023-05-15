@@ -3,12 +3,8 @@ const path = require("path");
 
 module.exports = async (req, res) => {
   try {
-    // let image = req.files.image;
-    // image.mv(path.resolve(__dirname, "..", "public/img", image.name));
-    await BlogPost.create(
-      req.body
-      //   image: "/img/" + image.name,
-    );
+    await BlogPost.create({ ...req.body, userid: req.session.userId });
+
     res.redirect("/");
   } catch (error) {
     const validationErrors = Object.keys(error.errors).map(
@@ -17,6 +13,7 @@ module.exports = async (req, res) => {
 
     req.flash("validationErrors", validationErrors);
     req.flash("data", req.body); //Persist Request Data on Form
+
     res.redirect("/posts/new");
   }
 };

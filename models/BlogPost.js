@@ -11,14 +11,14 @@ const BlogPostSchema = new Schema({
     type: String,
     required: [true, "please Provide Body"],
   },
-  username: String, // todo populate
+  userid: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
   datePosted: {
     type: Date,
     default: new Date(),
-  },
-  image: {
-    type: String,
-    required: [true, "Please Provide Image"],
   },
 });
 BlogPostSchema.plugin(uniqueValidator);

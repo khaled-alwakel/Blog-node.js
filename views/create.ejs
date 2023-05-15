@@ -6,10 +6,7 @@
     <%- include('layouts/navbar');-%>
 
     <!-- Page Header -->
-    <header
-      class="masthead"
-      style="background-image: url('/img/contact-bg.jpg')"
-    >
+    <header class="masthead" style="background-image: url('/img/home-bg.jpg')">
       <div class="overlay"></div>
       <div class="container">
         <div class="row">
@@ -49,6 +46,7 @@
                   placeholder="Title"
                   id="title"
                   name="title"
+                  value="<%=title %>"
                 />
               </div>
             </div>
@@ -60,21 +58,12 @@
                   class="form-control"
                   id="body"
                   name="body"
+                  value="<%=body %>"
                 ></textarea>
                 <p class="help-block text-danger"></p>
               </div>
             </div>
-            <div class="control-group">
-              <div class="form-group floating-label-form-group controls">
-                <label>Image</label>
-                <input
-                  type="file"
-                  class="form-control"
-                  id="image"
-                  name="image"
-                />
-              </div>
-            </div>
+
             <br />
             <div id="success"></div>
             <button
