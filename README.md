@@ -1,4 +1,4 @@
-# Node Blog 
+# Node Blog
 
 this is an application  which lets users write blog entries once they sign up with an account
 
