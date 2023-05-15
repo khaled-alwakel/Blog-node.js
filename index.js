@@ -50,7 +50,7 @@ app.get("/posts/new", authMiddleware, newPostController);
 
 app.post("/posts/store", authMiddleware, storePostController);
 
-app.get("/auth/register", redirectIfAuthenticatedMiddleware, newUserController);
+app.get("/auth/register", newUserController);
 
 app.post(
   "/users/register",
@@ -67,7 +67,7 @@ app.post(
 );
 app.get("/auth/logout", logoutController);
 
-app.use("/posts/store", validateMiddleWare);
+// app.use("/posts/store", validateMiddleWare);
 app.use((req, res) => res.render("notfound"));
 
 app.listen(4000, () => {
