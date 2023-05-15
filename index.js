@@ -8,7 +8,8 @@ app.use(
     saveUninitialized: true,
   })
 );
-
+const flash = require("connect-flash");
+app.use(flash());
 const mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost:27017/blog", { useNewUrlParser: true });
 
