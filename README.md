@@ -1,2 +1,3 @@
 
-![nodejs](node-blog.png)
+
+![nodejs](home-bg.jpg)
