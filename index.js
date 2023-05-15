@@ -23,13 +23,13 @@ app.use(express.static("public"));
 app.use(express.json());
 
 app.use(fileUpload());
-app.use("/posts/store", validateMiddleWare);
 
 global.loggedIn = null;
 app.use("*", (req, res, next) => {
   loggedIn = req.session.userId;
   next();
 });
+
 const newPostController = require("./controllers/newPost");
 const homeController = require("./controllers/home");
 const storePostController = require("./controllers/storePost");
@@ -65,8 +65,9 @@ app.post(
   redirectIfAuthenticatedMiddleware,
   loginUserController
 );
-
 app.get("/auth/logout", logoutController);
+
+app.use("/posts/store", validateMiddleWare);
 app.use((req, res) => res.render("notfound"));
 
 app.listen(4000, () => {
