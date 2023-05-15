@@ -13,7 +13,6 @@ app.use(flash());
 const mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost:27017/blog", { useNewUrlParser: true });
 
-const fileUpload = require("express-fileupload");
 const validateMiddleWare = require("./middleware/validationMiddleware");
 
 const ejs = require("ejs");
@@ -21,8 +20,6 @@ app.set("view engine", "ejs");
 
 app.use(express.static("public"));
 app.use(express.json());
-
-app.use(fileUpload());
 
 global.loggedIn = null;
 app.use("*", (req, res, next) => {
